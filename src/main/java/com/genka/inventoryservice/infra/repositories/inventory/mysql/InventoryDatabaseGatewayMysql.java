@@ -28,7 +28,7 @@ public class InventoryDatabaseGatewayMysql implements InventoryDatabaseGateway {
     }
 
     @Override
-    public void saveInventory(Inventory inventory) {
-        this.inventoryRepository.save(inventory);
+    public Inventory saveInventory(Inventory inventory) {
+        return this.inventoryRepository.save(inventory);
     }
 }

@@ -38,8 +38,9 @@ public class InventoryControllerImpl implements InventoryController {
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addInventory(@RequestBody AddInventoryInput addInventoryInput) {
-        this.addInventoryUseCase.execute(addInventoryInput);
+    public ResponseEntity<InventoryDTO> addInventory(@RequestBody AddInventoryInput addInventoryInput) {
+        InventoryDTO savedInventory = this.addInventoryUseCase.execute(addInventoryInput);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedInventory);
     }
 
     @Override

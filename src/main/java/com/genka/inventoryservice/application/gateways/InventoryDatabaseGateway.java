@@ -13,5 +13,5 @@ public interface InventoryDatabaseGateway {
     List<Inventory> findInventoriesByProductIdIn(List<UUID> productIds);
 
 
-    void saveInventory(Inventory inventory);
+    Inventory saveInventory(Inventory inventory);
 }

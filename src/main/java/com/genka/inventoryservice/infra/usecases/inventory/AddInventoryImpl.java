@@ -4,23 +4,27 @@ import com.genka.inventoryservice.application.gateways.InventoryDatabaseGateway;
 import com.genka.inventoryservice.application.usecases.inventory.AddInventory;
 import com.genka.inventoryservice.application.usecases.inventory.dtos.AddInventoryInput;
 import com.genka.inventoryservice.domain.inventory.Inventory;
+import com.genka.inventoryservice.domain.inventory.dtos.InventoryDTO;
+import com.genka.inventoryservice.infra.mappers.InventoryMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AddInventoryImpl implements AddInventory {
 
     private final InventoryDatabaseGateway inventoryDatabaseGateway;
+    private final InventoryMapper inventoryMapper;
 
-    public AddInventoryImpl(InventoryDatabaseGateway inventoryDatabaseGateway) {
+    public AddInventoryImpl(InventoryDatabaseGateway inventoryDatabaseGateway, InventoryMapper inventoryMapper) {
         this.inventoryDatabaseGateway = inventoryDatabaseGateway;
+        this.inventoryMapper = inventoryMapper;
     }
 
     @Override
-    public void execute(AddInventoryInput addInventoryInput) {
+    public InventoryDTO execute(AddInventoryInput addInventoryInput) {
         Inventory inventory = Inventory.builder()
                 .productId(addInventoryInput.getProductId())
                 .stockQuantity(addInventoryInput.getStockQuantity())
                 .build();
-        this.inventoryDatabaseGateway.saveInventory(inventory);
+        return this.inventoryMapper.mapEntityToDTO(this.inventoryDatabaseGateway.saveInventory(inventory));
     }
 }
