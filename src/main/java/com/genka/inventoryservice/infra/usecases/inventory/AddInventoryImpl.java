@@ -21,6 +21,10 @@ public class AddInventoryImpl implements AddInventory {
 
     @Override
     public InventoryDTO execute(AddInventoryInput addInventoryInput) {
+        boolean inventoryAlreadyExists = this.inventoryDatabaseGateway.findInventoryByProductId(addInventoryInput.getProductId()).isPresent();
+        if(inventoryAlreadyExists) {
+            throw new IllegalArgumentException("inventory already exists");
+        }
         Inventory inventory = Inventory.builder()
                 .productId(addInventoryInput.getProductId())
                 .stockQuantity(addInventoryInput.getStockQuantity())
