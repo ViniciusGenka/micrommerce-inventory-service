@@ -25,7 +25,14 @@ public class Inventory {
     private Integer version;
 
     public void decrementStockQuantity(Integer quantityToDecrement) {
+        if(this.stockQuantity < quantityToDecrement) {
+            throw new IllegalArgumentException("insufficient stock quantity");
+        }
         this.stockQuantity -= quantityToDecrement;
+    }
+
+    public void incrementStockQuantity(Integer quantityToIncrement) {
+        this.stockQuantity += quantityToIncrement;
     }
 
 }
