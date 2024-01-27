@@ -39,7 +39,7 @@ public class DecrementInventoryStocksImpl implements DecrementInventoryStocks {
             }
         }
         if (!notFoundInventoryIds.isEmpty()) {
-            throw new EntityNotFoundException("Some inventories were not found: [" + notFoundInventoryIds + "]");
+            throw new EntityNotFoundException("Some inventories were not found: " + notFoundInventoryIds);
         }
         for (Inventory inventory : decrementedInventories) {
             this.inventoryDatabaseGateway.saveInventory(inventory);
